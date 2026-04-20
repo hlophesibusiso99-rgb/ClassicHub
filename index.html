@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic 1970s Car Marketplace - AutoMarket Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --accent: #f77f00;
+            --light: #f1faee;
+            --dark: #1d3557;
+            --white: #ffffff;
+            --shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .logo span {
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #c1121f;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e67e22;
+        }
+
+        /* PAGE SECTIONS */
+        .page {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(135deg, rgba(29, 53, 87, 0.5), rgba(230, 57, 70, 0.5)), 
+                        url('data:image/jpeg;base64,/9j/4QBARXhpZgAASUkqAAgAAAABAJiCAgAbAAAAGgAAAAAAAADCqU1jR2FmZmluUGhvdG9ncmFwaHlfMjAyMQAAAAD/7AARRHVja3kAAQAEAAAARgAA/+EISWh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4xLWMwMDAgNzkuZWRhMmIzZmFjLCAyMDIxLzExLzE3LTE3OjIzOjE5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczpyZGY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9yaWdodHMvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtbG5zOklwdGM0eG1wQ29yZT0iaHR0cDovL2lwdGMub3JnL3N0ZC9JcHRjNHhtcENvcmUvMS4wL3htbG5zLyIgeG1wUmlnaHRzOk1hcmtlZD0iVHJ1ZSIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJFODhFMTREMUQ2RTQwNUE4MDcyOTI4OThDQUZDMTk2RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4NjJDOTQ3MTczRkUxMUVDOTY4OTlDQTBCREE2N0I1OCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NjJDOTQ3MDczRkUxMUVDOTY4OTlDQTBCREE2N0I1OCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjMuMCAoTWFjaW50b3NoKSIgcGhvdG9zaG9wOkF1dGhvcnNQb3NpdGlvbj0iQ3JlYXRpdmUgRGlyZWN0b3IvUGhvdG9ncmFwaGVyL0ZvdW5kZXIiPiA8eG1wUmlnaHRzOlVzYWdlVGVybXM+IDxyZGY6QWx0PiA8cmRmOmxpIHhtbDpsYW5nPSJ4LWRlZmF1bHQiPkFueSByZXByb2R1Y3Rpb24gb3IgdXNlIG9mIHRoZSBpbWFnZXMsIGRlc2NyaXB0aW9ucywgdGV4dCwgb3IgYXJ0d29yayBjb250YWluZWQgd2l0aGluIHRoaXMgbWFnYXppbmUsIGluIHBhcnQmI3hEO29yIGluIHdob2xlLCB3aXRob3V0IHRoZSBleHByZXNzIHdyaXR0ZW4gY29uc2VudCBvZiBXaGVlbCBIdWIgTWFnYXppbmUsIExMQyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLjwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwveG1wUmlnaHRzOlVzYWdlVGVybXM+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmRmN2MzNzgyLWMxYzUtNDVjMS05ZTQ2LTgxYzZmOGMzYzc5ZSIgc3RSZWY6ZG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjlhNGZjODFjLTc3NTUtYzk0OC1hOGY1LWVkMThmOTIzYjc1YiIvPiA8ZGM6cmlnaHRzPiA8cmRmOkFsdD4gPHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ij7CqU1jR2FmZmluUGhvdG9ncmFwaHlfMjAyMTwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6cmlnaHRzPiA8ZGM6Y3JlYXRvcj4gPHJkZjpTZXE+IDxyZGY6bGk+TUNHQUZGSU4gUEhPVE9IUkFQSFk8L3JkZjpsaT4gPHJkZjpsaT5Sb2JlcnQgTWNHYWZmaW4gZm9yIFdoZWVsIEh1YiBNYWdhemluZTwvcmRmOmxpPiA8cmRmOmxpPkxMQzwvcmRmOmxpPiA8L3JkZjpTZXE+IDwvZGM6Y3JlYXRvcj4gPElwdGM0eG1wQ29yZTpDcmVhdG9yQ29udGFcontactInfo {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* LISTINGS */
+        .listings-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 1.5rem;
+        }
+
+        .car-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .car-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* FILTERS */
+        .filters {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        /* LOGIN/REGISTER */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-section a {
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .car-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>Classic<span>Hub</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="browse.html">Browse</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page">
+        <section class="hero">
+            <div class="hero-content container">
+                <h1>Classic 1970s Muscle Cars</h1>
+                <p>Discover Legendary Vehicles from the Golden Era of Automotive Excellence</p>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search by make, model, or year...">
+                    <button class="btn btn-primary" onclick="searchCars()">Search</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="listings-section container">
+            <h2 class="section-title">Featured Classics</h2>
+            <div class="car-grid" id="featuredCars"></div>
+        </section>
+    </div>
+
+    <!-- CAR DETAIL MODAL -->
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <p id="modalDetails"></p>
+            <p id="modalPrice" style="font-size: 1.5rem; font-weight: bold; color: var(--primary); margin: 1rem 0;"></p>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 0.5rem;" onclick="contactSeller()">Contact Seller</button>
+            <button class="btn btn-outline" style="width: 100%;" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Classic Hub</h3>
+                    <p>Your destination for authentic 1970s muscle cars. Preserving automotive heritage, one classic at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a><br>
+                    <a href="browse.html">Browse Cars</a><br>
+                    <a href="about.html">About Us</a><br>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Facebook | Instagram | Twitter</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Classic Hub. All rights reserved. Celebrating 1970s Automotive Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Classic 1970s Car Database
+        const cars = [
+            {
+                id: 1,
+                make: 'Dodge',
+                model: 'Charger R/T',
+                year: 1970,
+                price: 450000,
+                image: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAUAB4ADASIAAhEBAxEB/8QAHgABAAEEAwEBAAAAAAAAAAAAAAECAwQFBgcICQr/xABiEAABAwIEBAMFBAcEBggBABsBAAIDBBEFBiExBxJBUQgTYSJxgZGhFDKxwQkVI0JS0fAWM2LhFyRDcoLxGDRTY5KissIlczVEg5PD0iYnNkZUo7MZRVVkhJTTKFZldHWF/8QAGwEBAQEBAQEBAQAAAAAAAAAAAAECAwQFBgf/xAA4EQEBAAIABQIDBwMEAgEFAQAAAQIRAxIhMVEEQWGR8AUTIoGhsdEyceEUQlLBBvEHFRYjM2JD/9oADAMBAAIRAxEAPwD6TBuncfioDLWDTbr307XVVjc9xpfvopaW62NyNL7oIAudBaynl0263sfmp6A9+inS22iC3ytNwfaHUH8Cp5QCCQCd79lVZoI1AJPu+CBugO4BQRY+8aDX6lOWxFu5sFP7wAsBb/kqgNjvf8EFJA1VHJfW9yBpfqq7NbYAWJ6fElTba9/mgttaAAA3fQ6nbfruqtdPZ12VVjobXubb7BQep/AoKTYau6aj3KQASCRrZVWB03+t1FtRrrtqgEC/W90Gp2tr9VI2U6EW+f8AkggAk67Dt+art1t8U62/5KQLoIsD0sgFrXFlXa23yUcutwPigW9Dolu6qAIPf6Kdxp1QUWI0t1VJaLW3VXbTRRYW3QQ1uq1mINPnvuL6gratHUdOy12IgNqHetjp7kGNG/ku7ry9PdorRG9wddtFW0GwOykg232QZWHXIeD1toFfqbinJPR7fxWPh/3nX20WVUj/AFR+17i2/dBkCxbvryrUv++dOpH1W2jFrW1u3Qf5rUvHtkWvY7IItYWS2/f8lOvQ3vqnY9RrcoAte9vmgAF7aXJvb5qW7jtdTYH+vkgn02CWsLAW/kp6dNPwUn33QQOu3uTl9B8kAHvVQ6ak3CCCzmB1cCQRcG1tN1W0aAaECw166IAeiDcOtr39EB2x639P6Km2mg1PZSQBc8o1Ui462QQN9dDbZSG6lw62H9FTa5vsTsgFgR2toPyQTa1yLXGwOn1VYGun1VLbAeuyqG3b0/5IJA1GmyqA9NOyj5i4Ujf52QVjW3dVdunuVI99u6kDt12QSGjW+vf5KofK/wAUUtQSNtFPoNkA+CWBtfX0QS1Tv7xuoHuVXv27oF9D1Ka/NO9gp+CCNhe2unRXGhUdOyrbsLaoK1Pa6gdLodigkbjTRVKn/Cqh06oKhboigfJVj5IAFiq9v5KkKtAAupaoVQ2QVDumnogHVSgIin+ggqREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERBwvlkbb2rA/e2udN1W7mbfkcblunU3t+Sqa67iALWPXr6qsG3pog0lFVTSVrC1jy9/3w5paGixBAJ0OwsBruVt53SNa58bOdw2bewPyH4hVjlBJaBzX9qw120v8ABVHe3fspJoWw7msTGQRcWIB0uNL+vooYem {
+                id: 2,
+                make: 'Plymouth',
+                model: 'Superbird',
+                year: 1970,
+                price: 520000,
+                image: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAUAB4ADASIAAhEBAxEB/8QAHgABAAEEAwEBAAAAAAAAAAAAAAECAwQFBgcICQr/xABiEAABAwIEBAMFBAcEBggBABsBAAIDBBEFBiExBxJBUQgTYSJxgZGhFDKxwQkVI0JS0fAWM2LhFyRDcoLxGDRTY5KissIlczVEg5PD0iYnNkZUo7MZRVVkhJTTKFZldHWF/8QAGwEBAQEBAQEBAQAAAAAAAAAAAAECAwQFBgf/xAA4EQEBAAIABQIDBwMEAgEFAQAAAQIRAxIhMVEEQWGR8AUTIoGhsdEyceEUQlLBBvEHFRYjM2JD/9oADAMBAAIRAxEAPwD6TBuncfioDLWDTbr307XVVjc9xpfvopaW62NyNL7oIAudBaynl0263sfmp6A9+inS22iC3ytNwfaHUH8Cp5QCCQCd79lVZoI1AJPu+CBugO4BQRY+8aDX6lOWxFu5sFP7wAsBb/kqgNjvf8EFJA1VHJfW9yBpfqq7NbYAWJ6fElTba9/mgttaAAA3fQ6nbfruqtdPZ12VVjobXubb7BQep/AoKTYau6aj3KQASCRrZVWB03+t1FtRrrtqgEC/W90Gp2tr9VI2U6EW+f8AkggAk67Dt+art1t8U62/5KQLoIsD0sgFrXFlXa23yUcutwPigW9Dolu6qAIPf6Kdxp1QUWI0t1VJaLW3VXbTRRYW3QQ1uq1mINPnvuL6gratHUdOy12IgNqHetjp7kGNG/ku7ry9PdorRG9wddtFW0GwOykg232QZWHXIeD1toFfqbinJPR7fxWPh/3nX20WVUj/AFR+17i2/dBkCxbvryrUv++dOpH1W2jFrW1u3Qf5rUvHtkWvY7IItYWS2/f8lOvQ3vqnY9RrcoAte9vmgAF7aXJvb5qW7jtdTYH+vkgn02CWsLAW/kp6dNPwUn33QQOu3uTl9B8kAHvVQ6ak3CCCzmB1cCQRcG1tN1W0aAaECw166IAeiDcOtr39EB2x639P6Km2mg1PZSQBc8o1Ui462QQN9dDbZSG6lw62H9FTa5vsTsgFgR2toPyQTa1yLXGwOn1VYGun1VLbAeuyqG3b0/5IJA1GmyqA9NOyj5i4Ujf52QVjW3dVdunuVI99u6kDt12QSGjW+vf5KofK/wAUUtQSNtFPoNkA+CWBtfX0QS1Tv7xuoHuVXv27oF9D1Ka/NO9gp+CCNhe2unRXGhUdOyrbsLaoK1Pa6gdLodigkbjTRVKn/Cqh06oKhboigfJVj5IAFiq9v5KkKtAAupaoVQ2QVDumnogHVSgIin+ggqREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERBwvlkbb2rA/e2udN1W7mbfkcblunU3t+Sqa67iALWPXr6qsG3pog0lFVTSVrC1jy9/3w5paGixBAJ0OwsBruVt53SNa58bOdw2bewPyH4hVjlBJaBzX9qw120v8ABVHe3fspJoWw7msTGQRcWIB0uNL+vooYem description: 'Legendary wing and nose cone, built for NASCAR dominance.'
+            },
+            {
+                id: 3,
+                make: 'Chevrolet',
+                model: 'Chevelle SS',
+                year: 1970,
+                price: 380000,
+                image: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAUAB4ADASIAAhEBAxEB/8QAHgABAAEEAwEBAAAAAAAAAAAAAAECAwQFBgcICQr/xABiEAABAwIEBAMFBAcEBggBABsBAAIDBBEFBiExBxJBUQgTYSJxgZGhFDKxwQkVI0JS0fAWM2LhFyRDcoLxGDRTY5KissIlczVEg5PD0iYnNkZUo7MZRVVkhJTTKFZldHWF/8QAGwEBAQEBAQEBAQAAAAAAAAAAAAECAwQFBgf/xAA4EQEBAAIABQIDBwMEAgEFAQAAAQIRAxIhMVEEQWGR8AUTIoGhsdEyceEUQlLBBvEHFRYjM2JD/9oADAMBAAIRAxEAPwD6TBuncfioDLWDTbr307XVVjc9xpfvopaW62NyNL7oIAudBaynl0263sfmp6A9+inS22iC3ytNwfaHUH8Cp5QCCQCd79lVZoI1AJPu+CBugO4BQRY+8aDX6lOWxFu5sFP7wAsBb/kqgNjvf8EFJA1VHJfW9yBpfqq7NbYAWJ6fElTba9/mgttaAAA3fQ6nbfruqtdPZ12VVjobXubb7BQep/AoKTYau6aj3KQASCRrZVWB03+t1FtRrrtqgEC/W90Gp2tr9VI2U6EW+f8AkggAk67Dt+art1t8U62/5KQLoIsD0sgFrXFlXa23yUcutwPigW9Dolu6qAIPf6Kdxp1QUWI0t1VJaLW3VXbTRRYW3QQ1uq1mINPnvuL6gratHUdOy12IgNqHetjp7kGNG/ku7ry9PdorRG9wddtFW0GwOykg232QZWHXIeD1toFfqbinJPR7fxWPh/3nX20WVUj/AFR+17i2/dBkCxbvryrUv++dOpH1W2jFrW1u3Qf5rUvHtkWvY7IItYWS2/f8lOvQ3vqnY9RrcoAte9vmgAF7aXJvb5qW7jtdTYH+vkgn02CWsLAW/kp6dNPwUn33QQOu3uTl9B8kAHvVQ6ak3CCCzmB1cCQRcG1tN1W0aAaECw166IAeiDcOtr39EB2x639P6Km2mg1PZSQBc8o1Ui462QQN9dDbZSG6lw62H9FTa5vsTsgFgR2toPyQTa1yLXGwOn1VYGun1VLbAeuyqG3b0/5IJA1GmyqA9NOyj5i4Ujf52QVjW3dVdunuVI99u6kDt12QSGjW+vf5KofK/wAUUtQSNtFPoNkA+CWBtfX0QS1Tv7xuoHuVXv27oF9D1Ka/NO9gp+CCNhe2unRXGhUdOyrbsLaoK1Pa6gdLodigkbjTRVKn/Cqh06oKhboigfJVj5IAFiq9v5KkKtAAupaoVQ2QVDumnogHVSgIin+ggqREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERBwvlkbb2rA/e2udN1W7mbfkcblunU3t+Sqa67iALWPXr6qsG3pog0lFVTSVrC1jy9/3w5paGixBAJ0OwsBruVt53SNa58bOdw2bewPyH4hVjlBJaBzX9qw120v8ABVHe3fspJoWw7msTGQRcWIB0uNL+vooYem description: 'The ultimate 454 big block muscle car, pure power.'
+            }
+        ];
+
+        let currentUser = null;
+
+        // Initialize display
+        window.onload = () => {
+            if (document.getElementById('featuredCars')) {
+                displayCars('featuredCars', cars.slice(0, 3));
+            }
+            if (document.getElementById('allCars')) {
+                displayCars('allCars', cars);
+            }
+        };
+
+        // Display Cars Function
+        function displayCars(containerId, carList) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            
+            carList.forEach(car => {
+                const card = document.createElement('div');
+                card.className = 'car-card';
+                card.innerHTML = `
+                    <img src="${car.image}" alt="${car.make} ${car.model}" class="car-image">
+                    <div class="car-info">
+                        <h3>${car.year} ${car.make} ${car.model}</h3>
+                        <p class="car-price">R ${car.price.toLocaleString()}</p>
+                        <div class="car-actions">
+                            <button class="btn btn-primary" onclick="viewDetails(${car.id})">View Details</button>
+                            <button class="btn btn-outline" onclick="contactSeller()">Contact</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // View Car Details
+        function viewDetails(carId) {
+            const car = cars.find(c => c.id === carId);
+            if (car) {
+                document.getElementById('modalTitle').textContent = `${car.year} ${car.make} ${car.model}`;
+                document.getElementById('modalImage').src = car.image;
+                document.getElementById('modalDetails').textContent = car.description;
+                document.getElementById('modalPrice').textContent = `Price: R ${car.price.toLocaleString()}`;
+                document.getElementById('carModal').classList.add('active');
+            }
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('carModal').classList.remove('active');
+        }
+
+        // Search Cars
+        function searchCars() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredCars = cars.filter(car => 
+                car.make.toLowerCase().includes(searchTerm) ||
+                car.model.toLowerCase().includes(searchTerm) ||
+                car.year.toString().includes(searchTerm)
+            );
+            displayCars('featuredCars', filteredCars);
+        }
+
+        // Contact Seller
+        function contactSeller() {
+            if (currentUser) {
+                alert(`Message sent to seller! They will contact you at ${currentUser.email}`);
+            } else {
+                alert('Please login first to contact the seller.');
+                window.location.href = 'login.html';
+            }
+            closeModal();
+        }
+    </script>
+</body>
+</html>

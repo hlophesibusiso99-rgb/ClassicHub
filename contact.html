@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Classic Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #e63946; --secondary: #1d3557; --accent: #f77f00;
+            --light: #f1faee; --dark: #1d3557; --white: #ffffff;
+            --shadow: 0 8px 16px rgba(0, 0, 0, 0.2); --transition: all 0.3s ease;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: var(--secondary); color: var(--white); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo h1 { font-size: 1.8rem; font-weight: bold; color: var(--accent); }
+        .logo span { color: var(--white); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--white); font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent); }
+        .btn { padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: var(--transition); border: none; display: inline-block; }
+        .btn-primary { background-color: var(--primary); color: var(--white); }
+        .btn-primary:hover { background-color: #c1121f; transform: translateY(-2px); }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        .btn-outline:hover { background-color: var(--primary); color: var(--white); }
+        .contact-section { padding: 4rem 0; }
+        .section-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--secondary); position: relative; }
+        .section-title::after { content: ''; display: block; width: 80px; height: 4px; background: var(--primary); margin: 10px auto; }
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .contact-info { background: var(--white); padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); }
+        .contact-form { background: var(--white); padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; }
+        .form-group textarea { height: 150px; resize: vertical; }
+        footer { background-color: var(--secondary); color: var(--white); padding: 4rem 0 2rem; margin-top: 4rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 2rem; }
+        .footer-section h3 { margin-bottom: 1.5rem; color: var(--accent); }
+        .footer-section a { display: block; margin-bottom: 0.5rem; transition: var(--transition); }
+        .footer-section a:hover { color: var(--accent); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        @media (max-width: 768px) { .nav-links { display: none; } .contact-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo"><h1>Classic<span>Hub</span></h1></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="browse.html">Browse</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="contact" class="page">
+        <section class="contact-section container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> info@classichub.com</p>
+                    <p><strong>Phone:</strong> +27 (11) 555-1234</p>
+                    <p><strong>Address:</strong> 123 Muscle Car Lane, Johannesburg, South Africa</p>
+                    <p><strong>Hours:</strong> Monday - Friday: 9AM - 6PM</p>
+                </div>
+
+                <form class="contact-form" onsubmit="submitContact(event)">
+                    <div class="form-group">
+                        <label for="contactName">Full Name</label>
+                        <input type="text" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address</label>
+                        <input type="email" id="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Classic Hub</h3>
+                    <p>Your destination for authentic 1970s muscle cars.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a><br>
+                    <a href="browse.html">Browse Cars</a><br>
+                    <a href="about.html">About Us</a><br>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Classic Hub.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        function submitContact(event) {
+            event.preventDefault();
+            const name = document.getElementById('contactName').value;
+            alert(`Thank you, ${name}! Your message has been sent.`);
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
